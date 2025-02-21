@@ -1,6 +1,15 @@
 # Point-LIO
 ## Point-LIO: Robust High-Bandwidth Lidar-Inertial Odometry
 # Point-LIO
+
+## git指令
+
+```bash
+git add .
+git commit -m '修改lioloc.cpp，支持p2s和GICP分开执行4'
+git push origin master
+```
+
 ## 1. Introduction
 
 <div align="center">
