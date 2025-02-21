@@ -9,6 +9,13 @@ git add .
 git commit -m '修改lioloc.cpp，支持p2s和GICP分开执行4'
 git push origin point-lio-with-grid-map
 ```
+## 编译运行指令
+
+```bash
+catkin_make -j10
+source devel/setup.bash
+roslaunch point_lio mapping_guangzhou_port.launch
+```
 
 ## 1. Introduction
 
