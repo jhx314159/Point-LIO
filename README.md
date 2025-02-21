@@ -7,7 +7,7 @@
 ```bash
 git add .
 git commit -m '修改lioloc.cpp，支持p2s和GICP分开执行4'
-git push origin master
+git push origin point-lio-with-grid-map
 ```
 
 ## 1. Introduction
