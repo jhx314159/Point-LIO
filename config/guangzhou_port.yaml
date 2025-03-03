@@ -1,6 +1,6 @@
 common:
     lid_topic: "/lidar_odom_node/meta_cloud" 
-    imu_topic: "/chcnav_fix_demo/imu" 
+    imu_topic: "/ins_driver/imu" 
     con_frame: false # true: if you need to combine several LiDAR frames into one
     con_frame_num: 1 # the number of frames combined
     cut_frame: false # true: if you need to cut one LiDAR frame into several subframes

@@ -235,7 +235,7 @@ void publish_frame_body(const ros::Publisher & pubLaserCloudFull_body)
     sensor_msgs::PointCloud2 laserCloudmsg;
     pcl::toROSMsg(*laserCloudIMUBody, laserCloudmsg);
     laserCloudmsg.header.stamp = ros::Time().fromSec(lidar_end_time);
-    laserCloudmsg.header.frame_id = "base_link";
+    laserCloudmsg.header.frame_id = "base_link_point_lio";
     pubLaserCloudFull_body.publish(laserCloudmsg);
     // publish_count -= PUBFRAME_PERIOD;
 }
@@ -270,7 +270,7 @@ void set_posestamp(T & out)
 void publish_odometry(const ros::Publisher & pubOdomAftMapped)
 {
     odomAftMapped.header.frame_id = "map";
-    odomAftMapped.child_frame_id = "base_link";
+    odomAftMapped.child_frame_id = "base_link_point_lio";
     if (publish_odometry_without_downsample)
     {
         odomAftMapped.header.stamp = ros::Time().fromSec(time_current);
@@ -294,7 +294,7 @@ void publish_odometry(const ros::Publisher & pubOdomAftMapped)
     q.setY(odomAftMapped.pose.pose.orientation.y);
     q.setZ(odomAftMapped.pose.pose.orientation.z);
     transform.setRotation( q );
-    br.sendTransform( tf::StampedTransform( transform, odomAftMapped.header.stamp, "map", "base_link") );
+    br.sendTransform( tf::StampedTransform( transform, odomAftMapped.header.stamp, "map", "base_link_point_lio") );
 }
 
 void publish_path(const ros::Publisher pubPath)
@@ -315,7 +315,7 @@ void publish_path(const ros::Publisher pubPath)
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "laserMapping");
-    ros::NodeHandle nh("~");
+    ros::NodeHandle nh;
     ros::AsyncSpinner spinner(0);
     spinner.start();
     readParameters(nh);
@@ -373,23 +373,18 @@ int main(int argc, char** argv)
     // ros::Subscriber sub_pcl = p_pre->lidar_type == AVIA ? \
     //     nh.subscribe(lid_topic, 200000, livox_pcl_cbk) : \
     //     nh.subscribe(lid_topic, 200000, standard_pcl_cbk);
+    std::cout << "------------lidar_topic = " << lid_topic <<std::endl;
     ros::Subscriber sub_pcl = nh.subscribe(lid_topic, 200000, standard_pcl_cbk);
+    std::cout << "------------imu_topic   = " << imu_topic <<std::endl;
     ros::Subscriber sub_imu = nh.subscribe(imu_topic, 200000, imu_cbk);
 
-    ros::Publisher pubLaserCloudFullRes = nh.advertise<sensor_msgs::PointCloud2>
-            ("/cloud_registered", 1000);
-    ros::Publisher pubLaserCloudFullRes_body = nh.advertise<sensor_msgs::PointCloud2>
-            ("/cloud_registered_body", 1000);
-    // ros::Publisher pubLaserCloudEffect  = nh.advertise<sensor_msgs::PointCloud2>
-            // ("/cloud_effected", 1000);
-    ros::Publisher pubLaserCloudMap = nh.advertise<sensor_msgs::PointCloud2>
-            ("/Laser_map", 1000);
-    ros::Publisher pubOdomAftMapped = nh.advertise<nav_msgs::Odometry> 
-            ("/aft_mapped_to_init", 1000);
-    ros::Publisher pubPath          = nh.advertise<nav_msgs::Path> 
-            ("/path", 1000);
-    // ros::Publisher plane_pub = nh.advertise<visualization_msgs::Marker>
-            // ("/planner_normal", 1000);
+    ros::Publisher pubLaserCloudFullRes = nh.advertise<sensor_msgs::PointCloud2>("cloud_registered", 1000);
+    ros::Publisher pubLaserCloudFullRes_body = nh.advertise<sensor_msgs::PointCloud2>("cloud_registered_body", 1000);
+    // ros::Publisher pubLaserCloudEffect  = nh.advertise<sensor_msgs::PointCloud2>("cloud_effected", 1000);
+    ros::Publisher pubLaserCloudMap = nh.advertise<sensor_msgs::PointCloud2>("laser_map", 1000);
+    ros::Publisher pubOdomAftMapped = nh.advertise<nav_msgs::Odometry> ("loc_result", 1000);
+    ros::Publisher pubPath          = nh.advertise<nav_msgs::Path> ("path", 1000);
+    // ros::Publisher plane_pub = nh.advertise<visualization_msgs::Marker>("planner_normal", 1000);
 //------------------------------------------------------------------------------------------------------
     signal(SIGINT, SigHandle);
     ros::Rate loop_rate(500);

@@ -14,7 +14,7 @@ git push origin point-lio-with-grid-map
 ```bash
 catkin_make -j10
 source devel/setup.bash
-roslaunch point_lio mapping_guangzhou_port.launch
+roslaunch point_lio point_lio-mapping_guangzhou_port.launch
 ```
 
 ## 1. Introduction

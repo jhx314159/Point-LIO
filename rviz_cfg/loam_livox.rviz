@@ -38,7 +38,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: surround
+    SyncSource: currPoints
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -70,7 +70,7 @@ Visualization Manager:
       Length: 0.699999988079071
       Name: Axes
       Radius: 0.05999999865889549
-      Reference Frame: base_link
+      Reference Frame: base_link_point_lio
       Show Trail: false
       Value: true
     - Class: rviz/Group
@@ -98,7 +98,7 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.05000000074505806
           Style: Points
-          Topic: /cloud_registered
+          Topic: /point_lio_ns/cloud_registered
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
@@ -126,7 +126,7 @@ Visualization Manager:
           Size (Pixels): 1
           Size (m): 0.009999999776482582
           Style: Points
-          Topic: /cloud_registered
+          Topic: /point_lio_ns/cloud_registered
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
@@ -206,7 +206,7 @@ Visualization Manager:
       Length: 0.699999988079071
       Name: Axes
       Radius: 0.10000000149011612
-      Reference Frame: base_link
+      Reference Frame: base_link_point_lio
       Show Trail: false
       Value: true
     - Alpha: 0
@@ -327,7 +327,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 418.5100402832031
+      Distance: 716.468994140625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
